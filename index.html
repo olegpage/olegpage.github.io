@@ -8,10 +8,20 @@
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
 </head>
 <body>
-    
+    <input type="file" accept="image/*" capture>
+
+
     <script>
-        var WebApp = window.Telegram.WebApp;
-        WebApp.showAlert(`Добро пожаловать, @${WebApp.WebAppUser.username}.`);
+        async function getMedia(constraints) {
+  let stream = null;
+
+  try {
+    stream = await navigator.mediaDevices.getUserMedia(constraints);
+    /* используем поток */
+  } catch (err) {
+    /* обработка ошибки */
+  }
+}
     </script>
 </body>
 </html>
