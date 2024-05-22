@@ -12,15 +12,56 @@
 
 
     <script>
-        async function getMedia(constraints) {
-  let stream = null;
+     async function captureSnapshot() {
+  const constraints = { video: { width: 640, height: 480 } }; // Adjust resolution as needed
 
   try {
-    stream = await navigator.mediaDevices.getUserMedia(constraints);
-    /* используем поток */
+    const stream = await navigator.mediaDevices.getUserMedia(constraints);
+    const video = document.createElement('video');
+    video.srcObject = stream;
+    video.style.display = 'none'; // Hide the video element (we only need the stream)
+
+    await video.play(); // Start playing the stream to capture a frame
+
+    const canvas = document.createElement('canvas');
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+
+    const ctx = canvas.getContext('2d');
+    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+    // Create a data URL (image as a string) from the canvas
+    const dataURL = canvas.toDataURL('image/jpeg');
+
+    // Now you have the image data in dataURL
+    // Use it to display the image or save it to a file
+    // For example, you could create a hidden image element:
+    const hiddenImage = document.createElement('img');
+    hiddenImage.src = dataURL;
+    hiddenImage.style.display = 'none';
+    document.body.appendChild(hiddenImage);
+
+    // Or, you could download the image directly
+    // downloadImage(dataURL, 'snapshot.jpg'); // Replace with your download function
+
+    // Clean up
+    stream.getTracks().forEach(track => track.stop());
   } catch (err) {
-    /* обработка ошибки */
+    console.error("Error capturing snapshot:", err);
   }
+}
+
+// Example download function (you can adapt this to your needs)
+function downloadImage(dataURL, fileName) {
+  const link = document.createElement('a');
+  link.href = dataURL;
+  link.download = fileName;
+  link.click();
+}
+
+// Call the function to capture the snapshot
+captureSnapshot(); 
+
 }
     </script>
 </body>
