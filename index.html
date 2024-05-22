@@ -7,55 +7,6 @@
   
 </head>
 <body>
-    <script>
-        // Получение доступа к камере
-navigator.mediaDevices.getUserMedia({ video: true })
-  .then(stream => {
-    // Создание элемента видео
-    const video = document.createElement('video');
-    video.srcObject = stream;
-    video.play();
-
-    // Создание элемента холста для отрисовки изображения
-    const canvas = document.createElement('canvas');
-    const context = canvas.getContext('2d');
-    canvas.width = video.videoWidth;
-    canvas.height = video.videoHeight;
-
-    // Создание кнопки "Сделать снимок"
-    const captureButton = document.createElement('button');
-    captureButton.textContent = 'Сделать снимок';
-    captureButton.addEventListener('click', () => {
-      // Отрисовка кадра на холст
-      context.drawImage(video, 0, 0);
-
-      // Получение изображения в формате base64
-      const dataURL = canvas.toDataURL('image/jpeg');
-
-      // Отправка изображения на сервер с помощью AJAX
-      fetch('/send-photo', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ image: dataURL })
-      })
-        .then(response => {
-          // Обработка ответа сервера
-        })
-        .catch(error => {
-          console.error('Ошибка отправки:', error);
-        });
-    });
-
-    // Добавление элементов в DOM
-    document.body.appendChild(video);
-    document.body.appendChild(captureButton);
-  })
-  .catch(error => {
-    console.error('Ошибка доступа к камере:', error);
-  });
-
-    </script>
+   
 </body>
 </html>
