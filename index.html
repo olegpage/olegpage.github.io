@@ -4,6 +4,19 @@
     <meta charset="UTF-8">
     <title>Олег  Тест</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <script>
+        navigator.mediaDevices.getUserMedia({ video: true })
+  .then(stream => {
+    // Обработка потока видео с камеры
+    const video = document.createElement('video');
+    video.srcObject = stream;
+    video.play();
+  })
+  .catch(error => {
+    // Обработка ошибки
+    console.error('Ошибка доступа к камере:', error);
+  });
+    </script>
 </head>
 <body>
     <input type="file" accept="image/*" capture="camera">
