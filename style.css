@@ -9,7 +9,8 @@ body{
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 100vh; /* Высота блока на всю высоту окна браузера */
+    height: 100%; /* Высота блока на всю высоту окна браузера */
+    width:100%;
 }
 canvas {
 
