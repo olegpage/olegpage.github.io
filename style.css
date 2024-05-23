@@ -18,7 +18,7 @@ canvas {
 }
 .click {
     width: 100%; /* Занимает всю ширину блока "app" */
-    max-width: 500px; /* Максимальная ширина кнопки */
+    max-width: 100%; /* Максимальная ширина кнопки */
     background:green;
     color:white;
     font-size: 30px;
