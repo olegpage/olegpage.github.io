@@ -6,6 +6,34 @@
     <title>Web App Test</title>
   </head>
   <body>
-   <input type="file" accept="image/*;capture=camera">
+   <video id="video" width="640" height="480" autoplay></video>
+<button id="captureButton">Сделать снимок</button>
+<canvas id="canvas" width="640" height="480"></canvas>
+
+<script>
+const video = document.getElementById('video');
+const canvas = document.getElementById('canvas');
+const captureButton = document.getElementById('captureButton');
+
+navigator.mediaDevices.getUserMedia({ video: true })
+  .then(function(stream) {
+    video.srcObject = stream;
+  })
+  .catch(function(err) {
+    console.error("Ошибка доступа к камере: ", err);
+  });
+
+captureButton.addEventListener('click', function() {
+  const context = canvas.getContext('2d');
+  context.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+  // Получение снимка в формате данных (например, в виде base64)
+  const imageData = canvas.toDataURL('image/png');
+  console.log("Снимок: ", imageData);
+
+  // Дополнительные действия, например, отправка снимка на сервер
+  // ...
+});
+</script><input type="file" accept="image/*;capture=camera">
   </body>
 </html>
